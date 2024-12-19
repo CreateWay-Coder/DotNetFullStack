@@ -2,6 +2,7 @@
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,30 +10,24 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241218100617_UserentityUpdate")]
+    partial class UserentityUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.11");
 
-            modelBuilder.Entity("API.Entities.AppUser", b =>
+            modelBuilder.Entity("API.Domain.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("PassportHash")
-                        .IsRequired()
-                        .HasColumnType("BLOB");
-
-                    b.Property<byte[]>("PassportSalt")
-                        .IsRequired()
-                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
