@@ -21,7 +21,7 @@ namespace API.Controllers
 
             var user = new AppUser()
             {
-                Name = registerDto.Username.ToLower(),
+                userName = registerDto.Username.ToLower(),
                 PassportHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password.ToLower())),
                 PassportSalt = hmac.Key
             };
@@ -31,7 +31,7 @@ namespace API.Controllers
 
             return new UserDto
             {
-                Username = user.Name,
+                Username = user.userName,
                 token = tokenService.CreateToken(user)
             };
         }
@@ -40,7 +40,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await dataContext.Users.FirstOrDefaultAsync(
-                x => x.Name == loginDto.Username.ToLower());
+                x => x.userName == loginDto.Username.ToLower());
 
             if (user == null) return BadRequest(Unauthorized("Invalid user"));
 
@@ -55,14 +55,14 @@ namespace API.Controllers
 
             return new UserDto
             {
-                Username = user.Name,
+                Username = user.userName,
                 token = tokenService.CreateToken(user)
             };
         }
 
         private async Task<bool> UserExits(string userName)
         {
-            return await dataContext.Users.AnyAsync(x => x.Name.ToLower() == userName.ToLower());
+            return await dataContext.Users.AnyAsync(x => x.userName.ToLower() == userName.ToLower());
         }
 
     }

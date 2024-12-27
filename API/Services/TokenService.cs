@@ -20,7 +20,7 @@ namespace API.Services
 
             var claim = new List<Claim>
             {
-                new (ClaimTypes.NameIdentifier,user.Name)
+                new (ClaimTypes.NameIdentifier,user.userName)
             };
 
             var creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha512Signature);
