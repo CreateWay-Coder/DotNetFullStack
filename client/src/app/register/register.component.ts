@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, input, Input, Output, output } from '@
 import { FormsModule } from '@angular/forms';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
 import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ import { AccountService } from '../_services/account.service';
 })
 export class RegisterComponent {
   private accountService = inject(AccountService);
+  private toastr = inject(ToastrService);
   @Input() userFormHomeComponent: any; //old way
   // userFormHomeComponent = input.required<any>(); //new way
   @Output() cancelRegister = new EventEmitter();//old way
@@ -26,7 +28,7 @@ export class RegisterComponent {
         console.log(response);
         this.cancel();
       },
-      error: error=> console.log(error)
+      error: error=> this.toastr.error(error.error)
     })
   }
 
